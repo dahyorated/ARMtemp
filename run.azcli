@@ -1,0 +1,6 @@
+
+
+
+az group create -n newstoredemo --location eastus
+
+az group create -g newstoredemo --template-file  "armtemp-storage.json" --parameters "armtemp-storage.parameters.json" --verbose

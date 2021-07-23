@@ -2,6 +2,7 @@ $rg = 'newstordem'
 New-AzResourceGroup -Name $rg -Location 'eastus' -Force
 
 New-AzResourceGroupDeployment `
--Name 'newstordem' `
+-Name 'NewStorage01' `
 -ResourceGroupName $rg `
--TemplateFile '.\azuredeploy.json'
+-TemplateFile '.\armtemp-storage.json' `
+-TemplateParameterFile '.\armtemp-storage.parameters.json'.
