@@ -1,0 +1,49 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+
+        "storageSKU": {
+            "type": "string",
+            "allowedValues": [
+                "Standard_LRS",
+                "Standard_ZRS",
+                "Standard_GRS",
+                "Standard_RAGRS",
+                "Premium_LRS"
+            ],
+            "defaultValue": "Premium_LRS",
+            "metadata": {
+                "description": "The type of replication to use for the storage account."
+            }
+        },
+
+        "storageName": {
+            "type": "string",
+            "metadata": {
+                "description": "Name of Storage account. Text only no spcae"
+            }
+        }
+    },
+    "functions": [],
+    "variables": {},
+    "resources": [
+    {
+        "type": "Microsoft.Storage/storageAccounts",
+        "apiVersion": "2021-01-01",
+        "name": "[parameters('storageName')]",
+        "location": "[resourceGroup().location]",
+        "sku": {
+           "name": "[parameters('storageSKU')]"
+        },
+        "kind": "StorageV2",
+        "tags": {
+            "displayName": "Demo-only"
+            },
+        "properties": {}
+
+    }
+
+    ],
+    "outputs": {}
+}

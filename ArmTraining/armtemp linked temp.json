@@ -1,0 +1,59 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+
+        "storageSKU": {
+            "type": "string",
+            "allowedValues": [
+                "Standard_LRS",
+                "Standard_ZRS",
+                "Standard_GRS",
+                "Standard_RAGRS",
+                "Premium_LRS"
+            ],
+            "defaultValue": "Premium_LRS",
+            "metadata": {
+                "description": "The type of replication to use for the storage account."
+            }
+        },
+
+        "storageName": {
+            "type": "string",
+            "defaultValue": "StoZiknew",
+            "metadata": {
+                "description": "Name of Storage account. Text only no spcae"
+            }
+        }
+        , "mydate": {
+           "type": "string",
+           "defaultValue": "[utcNow('yyyyMMddTHHmm')]",
+           "metadata": {
+                "description": "description"
+           }
+        }
+    },
+    "functions": [],
+    "variables": {
+        "storname":"[toLower(concat(parameters('storageName'), parameters('mydate')))]"
+    },
+    "resources": [
+    {
+        "type": "Microsoft.Storage/storageAccounts",
+        "apiVersion": "2021-01-01",
+        "name": "[variables('storname')]",
+        "location": "[resourceGroup().location]",
+        "sku": {
+           "name": "[parameters('storageSKU')]"
+        },
+        "kind": "StorageV2",
+        "tags": {
+            "displayName": "Demo-only"
+            },
+        "properties": {}
+
+    }
+
+    ],
+    "outputs": {}
+}
